@@ -50,8 +50,7 @@ except ImportError:
 console.print("正在检测虚拟环境")
 if not os.path.exists(".venv"):
     print("虚拟环境不存在 正在新建")
-    subprocess.getstatusoutput("pip install virtualenv")
-    subprocess.getstatusoutput("virtualenv .venv")
+    subprocess.getstatusoutput("python -m venv .venv")
 console.print("[Success] 虚拟环境环境正常", style="#7CFC00")
 
 # clone
@@ -118,5 +117,6 @@ Windows用户可以运行runbot.bat开启机器人
 Windows命令提示符一键执行指令：runbot.bat
 Linux用户请运行runbot.sh
 Linux终端一键执行指令：bash runbot.sh
+遇到问题请访问09bot.top
 """
 )
