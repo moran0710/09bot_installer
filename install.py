@@ -41,9 +41,20 @@ else:
 
 # git检测
 try:
+    # noinspection PyUnresolvedReferences
     from git import Repo
 except ImportError:
-    console.print("[ERROR] 出现错误：此环境没有安装git，请安装git后再试\nLinux用户可以使用yum install git或者apt-get install git命令安装\nWindows用户可前往网上下载git安装包")
+    if sys.platform == "linux":
+        console.print("[ERROR] 出现错误：此环境没有安装git。检测到你的操作系统为linux，正在尝试安装")
+        os.system("yum install git -y")
+        os.system("apt-get install git")
+        try:
+            from git import Repo
+        except ImportError:
+            console.print("[ERROR] 出现错误：此环境没有安装git，请安装git后再试\nLinux用户可以使用yum install git或者apt-get install "
+                          "git命令安装\nWindows用户可前往网上下载git安装包")
+    console.print("[ERROR] 出现错误：此环境没有安装git，请安装git后再试\nLinux用户可以使用yum install git或者apt-get install "
+                  "git命令安装\nWindows用户可前往网上下载git安装包")
     stop()
 
 # 虚拟环境检测
@@ -97,7 +108,7 @@ with console.status("正在释放启动脚本...."):
         bat = (
             r"""@echo off
 cd bot09
-..\.venv\Scripts\python.exe bot.py
+..\.venv\Scripts\python.exe runbot.py
 """
         )
         mode = "bat"
